@@ -1,7 +1,9 @@
 import express from 'express';
 import { sequelize } from './db.js';
 import './models/producto.js';
+import './models/usuario.js';
 import rutasProductos from './routes/productos.js';
+import rutasUsuarios from './routes/usuarios.js';
 
 
 const app = express();
@@ -15,6 +17,9 @@ app.use('/api/productos', rutasProductos);
 
 // Mostramos la carpeta frontend para poder acceder a los archivos desde el navegador
 app.use('/tienda', express.static('../frontend'));
+
+// cpnectamos el alta del administrador con la api
+app.use('/api/usuarios', rutasUsuarios);
 
 await sequelize.sync();
 
