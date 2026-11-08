@@ -13,6 +13,9 @@ app.get('/', (req, res) => {
 // Conectamos las rutas de productos con la api
 app.use('/api/productos', rutasProductos);
 
+// Mostramos la carpeta frontend para poder acceder a los archivos desde el navegador
+app.use('/tienda', express.static('../frontend'));
+
 await sequelize.sync();
 
 app.listen(3000, () => {
