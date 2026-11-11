@@ -48,6 +48,9 @@ app.use('/api/productos', rutasProductos);
 // Mostramos la carpeta frontend para poder acceder a los archivos desde el navegador
 app.use('/tienda', express.static('../frontend'));
 
+//mandamos las fotos de los productos desde la carpeta public/uploads
+app.use('/uploads', express.static('public/uploads'));
+
 // cpnectamos el alta del administrador con la api
 app.use('/api/usuarios', rutasUsuarios);
 
