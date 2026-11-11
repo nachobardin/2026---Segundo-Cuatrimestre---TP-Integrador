@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar producto - Autoservicio NBA</title>
+</head>
+<body>
+    <header>
+        <h1>Autoservicio NBA</h1>
+        <nav>
+            <a href="/admin">Volver al panel</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Agregar producto</h2>
+
+        <!-- Enviamos los datos del producto junto con su imagen -->
+        <form action="/admin/productos" method="post" enctype="multipart/form-data">
+
+            <div>
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" required>
+            </div>
+
+            <div>
+                <label for="categoria">Categoría</label>
+
+                <select id="categoria" name="categoria" required>
+
+                    <option value="">Elegí una categoría</option>
+                    <option value="Camisetas">Camisetas</option>
+                    <option value="Zapatillas">Zapatillas</option>
+                    
+                </select>
+            </div>
+
+            <div>
+                <label for="precio">Precio</label>
+                <input id="precio" name="precio" type="number" min="0.01" step="0.01" required>
+            </div>
+
+            <div>
+                <label for="imagen">Imagen</label>
+                <input id="imagen" name="imagen" type="file" accept="image/jpeg,image/png,image/webp" required>
+            </div>
+
+            <button type="submit">Guardar producto</button>
+        </form>
+    </main>
+</body>
+</html>

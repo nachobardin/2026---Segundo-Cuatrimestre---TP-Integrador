@@ -19,4 +19,11 @@ export async function listarProductos(req, res) {
             error: 'No se pudieron consultar los productos'
         });
     }
+
+}
+
+
+//Mostramos el formulario para cargar un producto nuevo
+export function mostrarFormulario(req, res){
+    return res.render('producto-form');
 }
