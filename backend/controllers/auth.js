@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { Usuario } from '../models/usuario.js';
+import { Producto } from '../models/producto.js';
 
 // Mostramos el formulario de ingreso sin ningún mensaje de error
 export function mostrarLogin(req, res) {
@@ -55,9 +56,13 @@ export async function ingresar(req, res, next) {
 }
 
 
-//Mostramos el panel despues de comprobar la sesion
-export function mostrarPanel(req, res) {
-    return res.render('admin');
+//Mostramos todos los prodcutos en el panel de administracion ordenados por id ascendente
+export async function mostrarPanel(req, res) {
+    const productos = await Producto.findAll({
+        order: [['id', 'ASC']]
+    });
+    //pasamos la lista a la vista para que la muestre
+    return res.render('admin', { productos });
 }
 
 

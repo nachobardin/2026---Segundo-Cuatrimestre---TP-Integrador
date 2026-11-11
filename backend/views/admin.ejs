@@ -17,6 +17,24 @@
 
         <h2>Panel del administrador</h2>
         <p>Ingresaste como <%= usuario.correo %></p>
+
+        <h3>Productos</h3>
+
+        <!-- mostramos un aviso si no hay productos -->
+        <% if (productos.length === 0) { %>
+            <p>No hay productos cargados.</p>
+        <% } else { %>
+            <ul>
+                <% productos.forEach(function(producto) { %>
+                    <li>
+                        <strong><%= producto.nombre %><strong></strong>
+                        - <%=producto.categoria %>
+                        - $<%=producto.precio %>
+                        - <%=producto.activo ? 'Activo' : 'Inactivo' %>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
         
         <form action="/logout" method="post">
             <button type="submit">Cerrar sesion</button>
