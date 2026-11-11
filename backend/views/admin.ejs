@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel - Autoservicio NBA</title>
+</head>
+<body>
+    <header>
+        <h1>Autoservicio NBA</h1>
+        <nav>
+            <a href="/tienda/">Volver a la tienda</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <h2>Panel del administrador</h2>
+        <p>Ingresaste como <%= usuario.correo %></p>
+        
+        <form action="/logout" method="post">
+            <button type="submit">Cerrar sesion</button>
+        </form>
+        
+    </main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar - Autoservicio NBA</title>
+</head>
+<body>
+    <header>
+        <h1>Autoservicio NBA</h1>
+        <nav>
+            <a href="/tienda/">Volver a la tienda</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Ingreso del administrador</h2>
+
+        <!-- Si el controlador manda un error, lo mostramos acá -->
+        <% if (error) { %>
+            <p role="alert"><%= error %></p>
+        <% } %>
+
+        <form action="/login" method="post">
+            <div>
+                <label for="correo">Correo</label>
+                <input id="correo" name="correo" type="email" required>
+            </div>
+
+            <div>
+                <label for="password">Contraseña</label>
+                <input id="password" name="password" type="password" required>
+            </div>
+
+            <button type="submit">Ingresar</button>
+
+            <button type="button" onclick="completarAcceso()"> Acesso rapido</button>
+        </form>
+    </main>
+
+    <script>
+        // Completamos los datos de la cuenta para faciliar el ingreso
+        function completarAcceso(){
+            document.getElementById('correo').value = 'nazareno.sotelo19@gmail.com';
+            document.getElementById('password').value = 'mambanegra24';
+        }
+    </script>
+</body>
+</html>
