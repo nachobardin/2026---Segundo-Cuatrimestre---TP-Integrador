@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar producto - Autoservicio NBA</title>
+    <title><%= producto ? 'Editar producto' : 'Agregar producto' %> - Autoservicio NBA</title>
 </head>
 <body>
     <header>
@@ -14,39 +14,39 @@
     </header>
 
     <main>
-        <h2>Agregar producto</h2>
+        <h2><%= producto ? 'Editar producto' : 'Agregar producto' %></h2>
 
-        <!-- Enviamos los datos del producto junto con su imagen -->
-        <form action="/admin/productos" method="post" enctype="multipart/form-data">
+        <!-- Usamos el mismo formulario para agregar y editar. -->
+        <form action="<%= producto ? '/admin/productos/' + producto.id + '/editar' : '/admin/productos' %>" method="post" enctype="multipart/form-data">
 
             <div>
                 <label for="nombre">Nombre</label>
-                <input id="nombre" name="nombre" type="text" required>
+                <input id="nombre" name="nombre" type="text" value="<%= producto ? producto.nombre : '' %>" required>
             </div>
 
             <div>
                 <label for="categoria">Categoría</label>
-
                 <select id="categoria" name="categoria" required>
-
                     <option value="">Elegí una categoría</option>
-                    <option value="Camisetas">Camisetas</option>
-                    <option value="Zapatillas">Zapatillas</option>
-                    
+                    <option value="Camisetas" <%= producto && producto.categoria === 'Camisetas' ? 'selected' : '' %>>Camisetas</option>
+                    <option value="Zapatillas" <%= producto && producto.categoria === 'Zapatillas' ? 'selected' : '' %>>Zapatillas</option>
                 </select>
             </div>
 
             <div>
                 <label for="precio">Precio</label>
-                <input id="precio" name="precio" type="number" min="0.01" step="0.01" required>
+                <input id="precio" name="precio" type="number" min="0.01" step="0.01" value="<%= producto ? producto.precio : '' %>" required>
             </div>
 
             <div>
                 <label for="imagen">Imagen</label>
-                <input id="imagen" name="imagen" type="file" accept="image/jpeg,image/png,image/webp" required>
+                <input id="imagen" name="imagen" type="file" accept="image/jpeg,image/png,image/webp" <%= producto ? '' : 'required' %>>
+                <% if (producto) { %>
+                    <p>Si no elegis otra imagen, se conserva la actual</p>
+                <% } %>
             </div>
 
-            <button type="submit">Guardar producto</button>
+            <button type="submit"><%= producto ? 'Guardar cambios' : 'Guardar producto' %></button>
         </form>
     </main>
 </body>

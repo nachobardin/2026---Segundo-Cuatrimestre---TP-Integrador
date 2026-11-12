@@ -26,8 +26,25 @@ export async function listarProductos(req, res) {
 
 //Mostramos el formulario para cargar un producto nuevo
 export function mostrarFormulario(req, res){
-    return res.render('producto-form');
+    return res.render('producto-form',{producto : null});
     }
+
+//Buscamos el producto elegido y mostramos sus datos en el formulario
+export async function mostrarEdicion(req, res, next){
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+
+        if(!producto){
+            return res.status(400).send('Producto no encontrado');
+        }
+
+        return res.render('producto-form', {producto});
+    } catch (error) {
+        return next(error);
+    }
+}
+
+
 
     //si el alta falla borramos la imagen que guardo multer
     async function borrarImagen(archivo){
@@ -62,6 +79,50 @@ export function mostrarFormulario(req, res){
         await borrarImagen(req.file);
         return next(error);
     }        
+
+    return res.redirect('/admin');
+}
+
+
+//Actualizamos el producto y guardamos su imagen si no se subio otra
+export async function editarProducto(req, res, next){
+    const { nombre, categoria, precio } = req.body ?? {};
+    const nombreLimpio = typeof nombre === 'string' ? nombre.trim(): '';
+    const precioNumero = typeof precio === 'string' ? Number(precio) : NaN;
+
+
+    if(!nombreLimpio || !categoria || !Number.isFinite(precioNumero) || precioNumero <= 0){
+        await borrarImagen(req.file);
+        return res.status(400).send('Revisa el nombre, la categoria y el precio');
+    }
+
+    let imagenAnterior;
+
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+
+        if(!producto){
+            await borrarImagen(req.file);
+            return res.status(400).send('Producto no encontrado');
+        }
+
+        imagenAnterior = producto.imagen;
+
+        await producto.update({
+            nombre: nombreLimpio,
+            categoria,
+            precio: precioNumero,
+            imagen: req.file ? `/uploads/${req.file.filename}` : imagenAnterior
+        });
+    } catch (error) {
+        await borrarImagen(req.file);
+        return next(error);
+    }
+
+    // Borramos la foto anterior solo si era una subida nuestra y el cambio ya se guardo
+    if (req.file && /^\/uploads\/[a-f0-9-]{36}\.(jpg|png|webp)$/i.test(imagenAnterior ?? '')){
+        await borrarImagen({ path: 'public${imagenAnterior}' });
+    }
 
     return res.redirect('/admin');
 }

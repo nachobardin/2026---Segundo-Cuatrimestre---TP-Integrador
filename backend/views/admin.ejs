@@ -28,10 +28,11 @@
             <ul>
                 <% productos.forEach(function(producto) { %>
                     <li>
-                        <strong><%= producto.nombre %><strong></strong>
+                        <strong><%= producto.nombre %></strong>
                         - <%=producto.categoria %>
                         - $<%=producto.precio %>
                         - <%=producto.activo ? 'Activo' : 'Inactivo' %>
+                        <a href="/admin/productos/<%= producto.id %>/editar">Editar</a>
                     </li>
                 <% }); %>
             </ul>
