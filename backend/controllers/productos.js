@@ -126,3 +126,25 @@ export async function editarProducto(req, res, next){
 
     return res.redirect('/admin');
 }
+
+//cambiamos el estado del producto, si se inactiva no se muestra en la lista de productos pero sigue existiendo en la base de datos
+export async function cambiarEstadoProducto(req, res, next){
+    const activo = req.body?.activo;
+
+    if (activo !== 'true' && activo !== 'false'){
+        return res.status(400).send('Valor de activo invalido');
+    }
+
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+
+        if (!producto){
+            return res.status(404).send('Producto no encontrado');
+        }
+
+        await producto.update({ activo: activo === 'true' });
+        return res.redirect('/admin');
+    } catch(error) {
+        return next(error);
+    }
+}

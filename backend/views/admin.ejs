@@ -33,6 +33,12 @@
                         - $<%=producto.precio %>
                         - <%=producto.activo ? 'Activo' : 'Inactivo' %>
                         <a href="/admin/productos/<%= producto.id %>/editar">Editar</a>
+
+                        <button type="button" class="cambiar-estado"
+                                data-url="/admin/productos/<%= producto.id %>/estado"
+                                data-activo="<%= producto.activo ? 'false' : 'true' %>">
+                                <%= producto.activo ? 'Desactivar' : 'Activar' %>
+                        </button>
                     </li>
                 <% }); %>
             </ul>
@@ -43,5 +49,39 @@
         </form>
         
     </main>
+    <dialog id="confirmar-estado" aria-labelledby="pregunta-estado">
+    <p id="pregunta-estado"></p>
+
+    <form id="form-estado" method="post">
+        <input type="hidden" name="activo" id="nuevo-estado">
+        <button type="submit">Confirmar</button>
+    </form>
+
+    <form method="dialog">
+        <button type="submit">Cancelar</button>
+    </form>
+</dialog>
+
+<script>
+
+    const modalEstado = document.getElementById('confirmar-estado');
+    const formEstado = document.getElementById('form-estado');
+    const nuevoEstado = document.getElementById('nuevo-estado');
+    const preguntaEstado = document.getElementById('pregunta-estado');
+
+    //prepara el formulario para el producto a transformar
+    document.querySelectorAll('.cambiar-estado').forEach(function (boton) {
+        boton.addEventListener('click', function () {
+            formEstado.action = boton.dataset.url;
+            nuevoEstado.value = boton.dataset.activo;
+            preguntaEstado.textContent = boton.dataset.activo === 'true'
+                ? '¿Queres activar este producto?'
+                : '¿Queres desactivar este producto?';
+
+            modalEstado.showModal();
+        });
+    });
+    
+</script>
 </body>
 </html>
