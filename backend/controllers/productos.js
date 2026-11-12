@@ -1,24 +1,49 @@
 import {unlink} from 'node:fs/promises';
 import { Producto } from '../models/producto.js';
+import { error } from 'node:console';
 
 
 // Listar todos los productos activos
 export async function listarProductos(req, res) {
+
+    const opciones = {where: {activo: true}, order: [['id', 'ASC']]};
+
+
     try {
         // Consultamos todos los productos activos en la base de datos
-        // los no acrtivos no se muestran pero siguen existiendo en la base de datos
+        // los no activos no se muestran pero siguen existiendo en la base de datos
         // los ordenamos por id de menor a mayor
-        const productos = await Producto.findAll({
-            where: { activo: true},
-            order:[['id', 'ASC']]
+        if(req.query.pagina === undefined){
+            const productos = await Producto.findAll(opciones);
+            // Retornamos los productos en formato JSON
+            return res.json(productos);
+        }
+        
+        const pagina = Number(req.query.pagina);
+        const porPagina = 6;
+        const inicio = (pagina - 1) * porPagina;
+
+
+        if(!Number.isSafeInteger(pagina) || pagina < 1 || !Number.isSafeInteger(inicio)){
+            return res.status(400).json({error: 'La pagina debe ser un entero positivo'});
+        }
+
+        //Traemos los productos de esta pagina y contamos todos los activos.
+        const {rows, count} = await Producto.findAndCountAll({
+            ...opciones,
+            limit: porPagina,
+            offset: inicio
         });
 
-        // Retornamos los productos en formato JSON
-        return res.json(productos);
-    } catch (error) {
-        return res.status(500).json({
-            error: 'No se pudieron consultar los productos'
+        return res.json({
+            productos: rows,
+            pagina,
+            totalProductos: count,
+            totalPaginas: Math.ceil(count / porPagina)
         });
+
+    } catch (error) {
+        return res.status(500).json({error: 'No se pudieron consultar los productos' });
     }
 
 }

@@ -16,7 +16,14 @@
         <h2>Catalogo</h2>
 
         <!--Aca vamos a mostrar los productos que nos devuelva nuestra API-->
-        <div id="productos"></div>
+        <ul id="lista-productos"></ul>
+
+        <nav aria-label="Paginas del catalogo">
+            <button id="pagina-anterior" type="button" disabled>Anterior</button>
+            <span id="estado-pagina" aria-live="polite"></span>
+            <button id="pagina-siguiente" type="button" disabled>Siguiente</button>
+
+        </nav>
     </main>
 
     <script src="catalogo.js"></script>
