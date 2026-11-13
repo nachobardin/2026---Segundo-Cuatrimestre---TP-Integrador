@@ -184,6 +184,7 @@ formRevisarPedido.addEventListener('submit', function(evento){
 
 const confirmarCompra = document.getElementById('confirmar-compra');
 const avisoCompra = document.getElementById('aviso-compra');
+const enlaceTicket = document.getElementById('descargar-ticket');
 
 resumenPedido.addEventListener('close', function () {
     avisoCompra.textContent = '';
@@ -208,9 +209,13 @@ confirmarCompra.addEventListener('click', async function () {
         const datos = await respuesta.json();
 
         if (!respuesta.ok) {
+
             avisoCompra.textContent = datos.error;
             return;
         }
+
+        enlaceTicket.href = '/api/ventas/' + datos.id + '/ticket';
+        enlaceTicket.hidden = false;
 
         //limpiamos el pedido solamente cuando el servidor confirma que lo guardo correctamente
         carrito.length = 0;
