@@ -132,4 +132,58 @@ siguiente.addEventListener('click', function () {
     cargarPagina(paginaActual + 1);
 });
 
+
+
+const formRevisarPedido = document.getElementById('form-revisar-pedido');
+const nombreCliente = document.getElementById('nombre-cliente');
+const avisoPedido = document.getElementById('aviso-pedido');
+const resumenPedido = document.getElementById('resumen-pedido');
+const clienteResumen = document.getElementById('cliente-resumen');
+const productoResumen = document.getElementById('productos-resumen');
+const totalResumen = document.getElementById('total-resumen');
+
+formRevisarPedido.addEventListener('submit', function(evento){
+    evento.preventDefault();
+
+    const nombre = nombreCliente.value.trim();
+    avisoPedido.textContent = '';
+
+    if(!nombre){
+        avisoPedido.textContent = 'Ingresa tu nombre: ';
+        nombreCliente.focus();
+        return;
+
+    }
+
+
+    if(carrito.length === 0){
+        avisoPedido.textContent = 'Agrega al menos un producto al carrito';
+        return;
+
+    }
+
+
+    //Armo el resumen con las cantidades que hay en el carrito en ese momento.
+    clienteResumen.textContent = 'Cliente: ' + nombre;
+    productoResumen.textContent = '';
+
+
+
+    carrito.forEach(function(item){
+        const fila = document.createElement('li');
+        fila.textContent = item.nombre + ' x ' + item.cantidad;
+        productoResumen.appendChild(fila);
+    });
+
+
+    totalResumen.textContent = totalCarrito.textContent;
+    resumenPedido.showModal();
+
+
+});
+
+
+
+
+
 cargarPagina(1);

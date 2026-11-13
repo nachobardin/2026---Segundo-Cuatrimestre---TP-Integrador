@@ -30,7 +30,34 @@
             <p id="carrito-vacio">Todavia no agregaste productos al carrito</p>
             <ul id="lista-carrito"></ul>
             <p>Total: $<strong id="total-carrito">0.00</strong></p>
+
+
+            <form id="form-revisar-pedido">
+                <label for="nombre-cliente">Tu nombre</label>
+                <input id="nombre-cliente" type="text" maxlength="80" required>
+                <button type="submit">Revisar pedido</button>
+            </form>
+            <p id="aviso-pedido" role="status"></p>
+
+
         </section>
+
+        <dialog id="resumen-pedido" aria-labelledby="titulo-resumen">
+            <h2 id="titulo-resumen">Resumen del pedido</h2>
+            <p id="cliente-resumen"></p>
+            <ul id="productos-resumen"></ul>
+            <p>Total: $<strong id="total-resumen"></strong></p>
+
+
+            <form method="dialog">
+                <button type="submit">Volver al carrito</button>
+            </form>
+
+    
+        </dialog>
+
+
+        
     </main>
 
     <script src="catalogo.js"></script>
