@@ -182,7 +182,50 @@ formRevisarPedido.addEventListener('submit', function(evento){
 
 });
 
+const confirmarCompra = document.getElementById('confirmar-compra');
+const avisoCompra = document.getElementById('aviso-compra');
 
+resumenPedido.addEventListener('close', function () {
+    avisoCompra.textContent = '';
+});
+
+confirmarCompra.addEventListener('click', async function () {
+    confirmarCompra.disabled = true;
+    avisoCompra.textContent = 'Guardando compra…';
+
+    try {
+        const respuesta = await fetch('/api/ventas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nombreCliente: nombreCliente.value.trim(),
+                productos: carrito.map(function (item) {
+                    return { id: item.id, cantidad: item.cantidad };
+                })
+            })
+        });
+
+        const datos = await respuesta.json();
+
+        if (!respuesta.ok) {
+            avisoCompra.textContent = datos.error;
+            return;
+        }
+
+        //limpiamos el pedido solamente cuando el servidor confirma que lo guardo correctamente
+        carrito.length = 0;
+        mostrarCarrito();
+        nombreCliente.value = '';
+        resumenPedido.close();
+
+        avisoPedido.textContent = 'Compra #' + datos.id + ' registrada. Total: $' +
+            (datos.totalCentavos / 100).toFixed(2);
+    } catch (error) {
+        avisoCompra.textContent = 'No se pudo confirmar la compra.';
+    } finally {
+        confirmarCompra.disabled = false;
+    }
+});
 
 
 

@@ -6,6 +6,8 @@ import rutasProductos from './routes/productos.js';
 import rutasUsuarios from './routes/usuarios.js';
 import session from 'express-session';
 import rutasAuth from './routes/auth.js'
+import './models/detalle-venta.js';
+import rutasVentas from './routes/ventas.js';
 
 
 const app = express();
@@ -57,6 +59,9 @@ app.use('/api/usuarios', rutasUsuarios);
 
 //Conectamos el ingreso y el panel de administrador
 app.use('/', rutasAuth);
+
+//Conectamos la ruta de ventas con la api
+app.use('/api/ventas', rutasVentas);
 
 
 
