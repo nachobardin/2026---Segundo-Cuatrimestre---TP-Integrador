@@ -104,25 +104,57 @@ async function cargarPagina(pagina) {
         paginaActual = datos.pagina;
         totalPaginas = datos.totalPaginas;
 
-        // Reemplazamos la lista con los productos de la página pedida.
+        // reemplazamos la lista con los productos de la pagina pedida.
         listaProductos.textContent = '';
 
         datos.productos.forEach(function (producto) {
-            const item = document.createElement('li');
-            item.textContent = producto.nombre + ' - $' + producto.precio;
+        const item = document.createElement('li');
 
-            const boton = document.createElement('button');
-            boton.type = 'button';
-            boton.textContent = 'Agregar al carrito';
-            boton.addEventListener('click', function () {
-                agregarAlCarrito(producto);
-            });
+        // mostramos la foto que tiene guardada el producto
+        const imagen = document.createElement('img');
+        imagen.alt = producto.nombre;
+        imagen.width = 200;
+        imagen.height = 200;
 
-            item.appendChild(boton);
-            listaProductos.appendChild(item);
+        // la foto se muestra completa y sin deformarse
+        imagen.style.objectFit = 'contain';
+        imagen.style.maxWidth = '100%';
+
+        const avisoImagen = document.createElement('p');
+        avisoImagen.textContent = 'Imagen no disponible';
+        avisoImagen.hidden = true;
+
+        // si la foto no se puede cargar mostramos un aviso
+        imagen.addEventListener('error', function () {
+            imagen.hidden = true;
+            avisoImagen.hidden = false;
         });
 
-        estadoPagina.textContent = totalPaginas === 0
+        if (producto.imagen) {
+            imagen.src = producto.imagen;
+        } else {
+            imagen.hidden = true;
+            avisoImagen.hidden = false;
+        }
+
+        const nombre = document.createElement('h3');
+        nombre.textContent = producto.nombre;
+
+        const precio = document.createElement('p');
+        precio.textContent = '$' + Number(producto.precio).toFixed(2);
+
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.textContent = 'Agregar al carrito';
+        boton.addEventListener('click', function () {
+            agregarAlCarrito(producto);
+        });
+
+        item.append(imagen, avisoImagen, nombre, precio, boton);
+        listaProductos.appendChild(item);
+    });
+
+    estadoPagina.textContent = totalPaginas === 0
             ? 'No hay productos disponibles.'
             : 'Página ' + paginaActual + ' de ' + totalPaginas;
     } catch (error) {
