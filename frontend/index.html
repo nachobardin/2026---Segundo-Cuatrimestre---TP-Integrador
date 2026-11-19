@@ -15,7 +15,14 @@
     <main>
         <h2>Catalogo</h2>
 
-        <!--Aca vamos a mostrar los productos que nos devuelva nuestra API-->
+        <label for="filtro-categoria">Categoría</label>
+        <select id="filtro-categoria">
+            <option value="">Todas</option>
+            <option value="Camisetas">Camisetas</option>
+            <option value="Zapatillas">Zapatillas</option>
+        </select>
+
+        <!--aca vamos a mostrar los productos que nos devuelva nuestra API-->
         <ul id="lista-productos"></ul>
 
         <nav aria-label="Paginas del catalogo">

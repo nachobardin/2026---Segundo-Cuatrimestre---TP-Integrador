@@ -2,6 +2,8 @@ const listaProductos = document.getElementById('lista-productos');
 const anterior = document.getElementById('pagina-anterior');
 const siguiente = document.getElementById('pagina-siguiente');
 const estadoPagina = document.getElementById('estado-pagina');
+const filtroCategoria = document.getElementById('filtro-categoria');
+
 
 let paginaActual = 1;
 let totalPaginas = 0;
@@ -85,7 +87,14 @@ async function cargarPagina(pagina) {
     siguiente.disabled = true;
 
     try {
-        const respuesta = await fetch('/api/productos?pagina=' + pagina);
+        let url = '/api/productos?pagina=' + pagina;
+
+    // mandamos la categoria elegida junto con la pagina que queremos consultar
+    if (filtroCategoria.value !== '') {
+        url += '&categoria=' + encodeURIComponent(filtroCategoria.value);
+    }
+
+    const respuesta = await fetch(url);
 
         if (!respuesta.ok) {
             throw new Error('No se pudo cargar la página.');
@@ -232,6 +241,9 @@ confirmarCompra.addEventListener('click', async function () {
     }
 });
 
-
+//al cambiar de categoria empezamos desde la primera pagina
+filtroCategoria.addEventListener('change', function() {
+    cargarPagina(1);
+})
 
 cargarPagina(1);

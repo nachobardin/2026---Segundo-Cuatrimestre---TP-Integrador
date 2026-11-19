@@ -7,7 +7,18 @@ import { error } from 'node:console';
 export async function listarProductos(req, res) {
 
     const opciones = {where: {activo: true}, order: [['id', 'ASC']]};
+    const categoria = req.query.categoria;
 
+    // si se eligio una categoria revisamos que sea una de las que ofrecemos
+    if (categoria !== undefined) {
+        if (!['Camisetas', 'Zapatillas'].includes(categoria)) {
+            return res.status(400).json({
+                error: 'La categoría debe ser Camisetas o Zapatillas.'
+            });
+        }
+
+        opciones.where.categoria = categoria;
+    }
 
     try {
         // Consultamos todos los productos activos en la base de datos
