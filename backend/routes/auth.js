@@ -3,6 +3,7 @@ import { mostrarLogin, ingresar, mostrarPanel, salir } from '../controllers/auth
 import {requireAuth} from '../middlewares/auth.js'
 import { mostrarFormulario, crearProducto, mostrarEdicion, editarProducto, cambiarEstadoProducto } from '../controllers/productos.js';
 import { subirImagen } from '../middlewares/productos.js';
+import {mostrarHistorialVentas} from '../controllers/ventas.js';
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.post('/admin/productos', requireAuth, subirImagen, crearProducto);
 router.get('/admin/productos/:id/editar', requireAuth, mostrarEdicion);
 router.post('/admin/productos/:id/editar', requireAuth, subirImagen, editarProducto);
 router.post('/admin/productos/:id/estado', requireAuth, cambiarEstadoProducto);
+router.get('/admin/ventas', requireAuth, mostrarHistorialVentas);
 
 export default router;
 

@@ -149,3 +149,22 @@ export async function descargarTicket(req, res, next){
     }
 
 } 
+
+//trae las ventas con sus productos de la mas nueva a la mas vieja
+export async function mostrarHistorialVentas(req, res, next) {
+    try {
+        const ventas = await Venta.findAll({
+            include: Producto,
+            order: [['id', 'DESC']]
+        });
+
+        const moneda = new Intl.NumberFormat('es-AR', {
+            style: 'currency',
+            currency: 'ARS'
+        });
+
+        return res.render('ventas', { ventas, moneda });
+    } catch (error) {
+        return next(error);
+    }
+}

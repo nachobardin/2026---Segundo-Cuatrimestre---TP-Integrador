@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de ventas - Autoservicio NBA</title>
+</head>
+<body>
+    <main>
+        <h1>Historial de ventas</h1>
+        <a href="/admin">Volver al panel</a>
+
+        <% if (ventas.length === 0) { %>
+            <p>Todavia no hay ventas registradas.</p>
+        <% } %>
+
+        <% ventas.forEach(function (venta) { %>
+            <section>
+                <h2>Compra #<%= venta.id %> — <%= venta.nombreCliente %></h2>
+                <p><%= venta.fecha.toLocaleString('es-AR', {
+                    timeZone: 'America/Argentina/Buenos_Aires'
+                }) %></p>
+
+                <ul>
+                    <% venta.Productos.forEach(function (producto) { %>
+                        <li>
+                            <%= producto.nombre %>:
+                            <%= producto.DetalleVenta.cantidad %> ×
+                            <%= moneda.format(producto.DetalleVenta.precioUnitario / 100) %>
+                        </li>
+                    <% }); %>
+                </ul>
+
+                <p>Total: <strong><%= moneda.format(venta.total / 100) %></strong></p>
+            </section>
+        <% }); %>
+    </main>
+</body>
+</html>
