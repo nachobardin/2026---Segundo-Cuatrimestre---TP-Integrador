@@ -246,4 +246,28 @@ filtroCategoria.addEventListener('change', function() {
     cargarPagina(1);
 })
 
+const bienvenida = document.getElementById('bienvenida');
+const formBienvenida = document.getElementById('form-bienvenida');
+const avisoBienvenida = document.getElementById('aviso-bienvenida');
+const zonaCompra = document.getElementById('zona-compra');
+const saludoCliente = document.getElementById('saludo-cliente');
+
+//pedimos el nombre al clientye antes de empezar a elegir productos
+formBienvenida.addEventListener('submit', function (evento) {
+    evento.preventDefault();
+
+    const nombre = nombreCliente.value.trim();
+
+    if (!nombre) {
+        avisoBienvenida.textContent = 'Ingresa tu nombre para comenzar.';
+        nombreCliente.focus();
+        return;
+    }
+
+    nombreCliente.value = nombre;
+    saludoCliente.textContent = '¡Hola, ' + nombre + '! Elegi tu equipamiento.';
+    bienvenida.hidden = true;
+    zonaCompra.hidden = false;
+});
+
 cargarPagina(1);

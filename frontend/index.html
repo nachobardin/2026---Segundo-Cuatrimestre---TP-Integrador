@@ -13,16 +13,32 @@
     </header>
 
     <main>
+        <section id="bienvenida">
+            <h2>¡Bienvenido a la cancha!</h2>
+            <p>¿Te falta equipamiento para jugar? Elegi tu camiseta o tus zapatillas de basquet.</p>
+
+            <form id="form-bienvenida">
+                <label for="nombre-cliente">Tu nombre</label>
+                <input id="nombre-cliente" type="text" maxlength="80" required>
+                <button type="submit">Comenzar</button>
+            </form>
+
+            <p id="aviso-bienvenida" role="status"></p>
+        </section>
+
+        <div id="zona-compra" hidden>
+            <p id="saludo-cliente"></p>
+
         <h2>Catalogo</h2>
 
-        <label for="filtro-categoria">Categoría</label>
+        <label for="filtro-categoria">Categoria</label>
         <select id="filtro-categoria">
             <option value="">Todas</option>
             <option value="Camisetas">Camisetas</option>
             <option value="Zapatillas">Zapatillas</option>
         </select>
 
-        <!--aca vamos a mostrar los productos que nos devuelva nuestra API-->
+        <!--aca vamos a mostrar los productos que nos devuelva nuestra api-->
         <ul id="lista-productos"></ul>
 
         <nav aria-label="Paginas del catalogo">
@@ -40,8 +56,6 @@
 
 
             <form id="form-revisar-pedido">
-                <label for="nombre-cliente">Tu nombre</label>
-                <input id="nombre-cliente" type="text" maxlength="80" required>
                 <button type="submit">Revisar pedido</button>
             </form>
             <p id="aviso-pedido" role="status"></p>
@@ -65,9 +79,7 @@
 
     
         </dialog>
-
-
-        
+        </div>
     </main>
 
     <script src="catalogo.js"></script>
