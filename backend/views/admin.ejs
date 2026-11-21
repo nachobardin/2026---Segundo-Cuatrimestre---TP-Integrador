@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel - Autoservicio NBA</title>
+    <link rel="stylesheet" href="/tienda/estilos.css">
+    <script src="/tienda/tema.js" defer></script>
 </head>
-<body>
+<body class="pagina-admin">
     <header>
         <h1>Autoservicio NBA</h1>
         <nav>
             <a href="/tienda/">Volver a la tienda</a>
         </nav>
+
+        <button id="cambiar-tema" type="button" aria-pressed="false">
+            Activar modo oscuro
+        </button>
     </header>
 
     <main>
 
         <h2>Panel del administrador</h2>
-        <a href="/admin/productos/nuevo">Agregar producto</a>
-        <a href="/admin/ventas">Ver historial de ventas</a>
+        <div class="acciones-admin">
+            <a href="/admin/productos/nuevo">Agregar producto</a>
+            <a href="/admin/ventas">Ver historial de ventas</a>
+        </div>
         <p>Ingresaste como <%= usuario.correo %></p>
 
         <h3>Productos</h3>
@@ -26,7 +34,7 @@
         <% if (productos.length === 0) { %>
             <p>No hay productos cargados.</p>
         <% } else { %>
-            <ul>
+            <ul class="productos-admin">
                 <% productos.forEach(function(producto) { %>
                     <li>
                         <strong><%= producto.nombre %></strong>

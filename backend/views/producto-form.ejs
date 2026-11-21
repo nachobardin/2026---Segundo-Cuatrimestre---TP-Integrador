@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= producto ? 'Editar producto' : 'Agregar producto' %> - Autoservicio NBA</title>
+    <link rel="stylesheet" href="/tienda/estilos.css">
+    <script src="/tienda/tema.js" defer></script>
 </head>
-<body>
+<body class="pagina-producto">
     <header>
         <h1>Autoservicio NBA</h1>
         <nav>
             <a href="/admin">Volver al panel</a>
         </nav>
+
+        <button id="cambiar-tema" type="button" aria-pressed="false">
+            Activar modo oscuro
+        </button>
     </header>
 
     <main>
         <h2><%= producto ? 'Editar producto' : 'Agregar producto' %></h2>
 
-        <!-- Usamos el mismo formulario para agregar y editar. -->
+        <!--usamos el mismo formulario para agregar y editar -->
         <form action="<%= producto ? '/admin/productos/' + producto.id + '/editar' : '/admin/productos' %>" method="post" enctype="multipart/form-data">
 
             <div>

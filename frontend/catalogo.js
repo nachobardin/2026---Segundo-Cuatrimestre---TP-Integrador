@@ -189,11 +189,13 @@ formRevisarPedido.addEventListener('submit', function(evento){
     const nombre = nombreCliente.value.trim();
     avisoPedido.textContent = '';
 
-    if(!nombre){
-        avisoPedido.textContent = 'Ingresa tu nombre: ';
+//si termina la compra se pide el nombre para un nuevo pedido
+    if (!nombre) {
+        bienvenida.hidden = false;
+        zonaCompra.hidden = true;
+        avisoBienvenida.textContent = 'Ingresa tu nombre para comenzar otro pedido.';
         nombreCliente.focus();
         return;
-
     }
 
 

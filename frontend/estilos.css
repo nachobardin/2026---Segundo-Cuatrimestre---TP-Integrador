@@ -1,0 +1,613 @@
+/*creamos el borde y el relleno dentro del tamaño de cada elemento */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #202530;
+    background-color: #c99253;
+
+    /* Dibujamos la cancha sobre las tablas de parquet. */
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 600'%3E%3Cg fill='none' stroke='white' stroke-opacity='.65' stroke-width='4'%3E%3Crect x='30' y='30' width='940' height='540'/%3E%3Cpath d='M500 30V570'/%3E%3Ccircle cx='500' cy='300' r='75'/%3E%3Cpath d='M30 210H190V390H30 M970 210H810V390H970'/%3E%3Ccircle cx='190' cy='300' r='60'/%3E%3Ccircle cx='810' cy='300' r='60'/%3E%3Cpath d='M30 65H90Q450 300 90 535H30 M970 65H910Q550 300 910 535H970'/%3E%3C/g%3E%3C/svg%3E"),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 119px,
+            rgba(91, 51, 20, 0.25) 119px,
+            rgba(91, 51, 20, 0.25) 121px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            #d8a467 0,
+            #c99253 38px,
+            #b98043 39px,
+            #e0b17a 40px,
+            #d3a064 79px,
+            #a97139 80px
+        );
+
+    background-size: cover, 240px 160px, 240px 160px;
+    background-position: center;
+    background-repeat: no-repeat, repeat, repeat;
+    background-attachment: fixed;
+}
+
+
+header {
+    padding: 28px 20px;
+    background-color: #17243b;
+    color: white;
+    text-align: center;
+    border-bottom: 5px solid #ef8c23;
+}
+
+header h1 {
+    margin: 0 0 10px;
+}
+
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 24px 16px;
+}
+
+button,
+input,
+select {
+    padding: 10px 14px;
+    font: inherit;
+    border-radius: 6px;
+}
+
+input,
+select {
+    max-width: 100%;
+    border: 1px solid #a5adba;
+}
+
+button {
+    border: none;
+    background-color: #17243b;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #30496e;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+    outline: 3px solid #b85e00;
+    outline-offset: 3px;
+}
+
+/*centramos el ingreso del cliente*/
+#bienvenida {
+    max-width: 560px;
+    margin: 30px auto;
+    padding: 28px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+#form-bienvenida {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#saludo-cliente {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*en pc mostramos tres productos por fila*/
+#lista-productos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 24px 0;
+    list-style: none;
+}
+
+#lista-productos > li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #dce1e8;
+    border-radius: 12px;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+#lista-productos img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+}
+
+#lista-productos h3 {
+    margin-bottom: 8px;
+}
+
+#lista-productos button {
+    margin-top: auto;
+    width: 100%;
+}
+
+nav[aria-label="Paginas del catalogo"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+/*separamos el carrito del catalogo*/
+section[aria-labelledby="titulo-carrito"] {
+    padding: 24px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+#lista-carrito {
+    padding: 0;
+    list-style: none;
+}
+
+#lista-carrito li {
+    padding: 12px 0;
+    border-bottom: 1px solid #dce1e8;
+    overflow-wrap: anywhere;
+}
+
+#lista-carrito button {
+    margin: 4px;
+}
+
+#descargar-ticket {
+    color: #174c91;
+    font-weight: bold;
+}
+
+/*ajustamos el resumen al ancho disponible*/
+dialog {
+    width: 440px;
+    max-width: calc(100% - 32px);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    border: none;
+    border-radius: 12px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+dialog button {
+    margin-top: 10px;
+}
+
+/*en tablet mostramos dos productos por fila*/
+@media (max-width: 900px) {
+    #lista-productos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/*en celular mostramos un producto por fila*/
+@media (max-width: 600px) {
+    #lista-productos {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    #bienvenida {
+        margin: 10px auto;
+        padding: 20px;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}
+
+main {
+    background-color: transparent;
+}
+
+/*los cuadros se ven con un fondo blanco semitransparent */
+#lista-productos > li,
+#bienvenida,
+section[aria-labelledby="titulo-carrito"] {
+    background-color: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/*centramos el cuadro de ingreso del admin */
+.pagina-login main {
+    width: calc(100% - 32px);
+    max-width: 460px;
+    margin: 40px auto;
+    padding: 28px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.pagina-login h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.pagina-login header a {
+    display: inline-block;
+    margin-top: 8px;
+    color: white;
+}
+
+.pagina-login form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* mostramos cada etiqueta encima de su campo */
+.pagina-login form div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pagina-login label {
+    font-weight: bold;
+}
+
+.pagina-login input {
+    width: 100%;
+    background-color: white;
+    color: #202530;
+}
+
+.pagina-login button {
+    width: 100%;
+}
+
+.pagina-login button[type="button"] {
+    background-color: #dce1e8;
+    color: #17243b;
+}
+
+.pagina-login button[type="button"]:hover {
+    background-color: #c5cddb;
+}
+
+.pagina-login [role="alert"] {
+    padding: 12px;
+    background-color: #ffe5e5;
+    color: #8a1515;
+    border-radius: 6px;
+}
+
+@media (max-width: 600px) {
+    .pagina-login main {
+        margin: 24px auto;
+        padding: 20px;
+    }
+}
+
+.pagina-admin main {
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.pagina-admin header a {
+    display: inline-block;
+    margin-top: 8px;
+    color: white;
+}
+
+.pagina-admin main > p {
+    overflow-wrap: anywhere;
+}
+.acciones-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.acciones-admin a {
+    padding: 12px 16px;
+    background-color: #17243b;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.acciones-admin a:hover {
+    background-color: #30496e;
+}
+
+/*cada producto tiene su propio cuadro*/
+.productos-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 0;
+    list-style: none;
+}
+
+.productos-admin li {
+    padding: 18px;
+    background-color: rgba(255, 255, 255, 0.78);
+    border: 1px solid #c5cddb;
+    border-radius: 8px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.productos-admin strong {
+    display: block;
+    font-size: 18px;
+}
+
+.productos-admin a {
+    display: inline-block;
+    margin: 8px;
+    color: #174c91;
+    font-weight: bold;
+}
+
+.productos-admin button {
+    margin-top: 8px;
+}
+
+/*diferenciamos el cierre de sesión de las otras acciones*/
+.pagina-admin form[action="/logout"] {
+    margin-top: 24px;
+}
+
+.pagina-admin form[action="/logout"] button {
+    background-color: #9b2525;
+}
+
+.pagina-admin form[action="/logout"] button:hover {
+    background-color: #761b1b;
+}
+
+@media (max-width: 600px) {
+    .acciones-admin {
+        flex-direction: column;
+    }
+
+    .acciones-admin a {
+        text-align: center;
+    }
+
+    .productos-admin li {
+        padding: 14px;
+    }
+}
+
+/* Usamos el mismo diseño para agregar y editar productos. */
+.pagina-producto main {
+    width: calc(100% - 32px);
+    max-width: 600px;
+    margin: 32px auto;
+    padding: 28px;
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.pagina-producto header a {
+    display: inline-block;
+    margin-top: 8px;
+    color: white;
+}
+
+.pagina-producto h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.pagina-producto form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* sepone cada etiqueta encima de su campo */
+.pagina-producto form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pagina-producto label {
+    font-weight: bold;
+}
+
+.pagina-producto input,
+.pagina-producto select {
+    width: 100%;
+    min-width: 0;
+    background-color: white;
+    color: #202530;
+}
+
+.pagina-producto input[type="file"] {
+    font-size: 14px;
+}
+
+.pagina-producto form p {
+    margin: 0;
+    font-size: 14px;
+    color: #414b5a;
+}
+
+.pagina-producto button[type="submit"] {
+    width: 100%;
+    margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+    .pagina-producto main {
+        margin: 24px auto;
+        padding: 20px;
+    }
+}
+
+.pagina-ventas main {
+    width: calc(100% - 32px);
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 28px;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.pagina-ventas header a {
+    display: inline-block;
+    margin-top: 8px;
+    color: white;
+}
+
+.pagina-ventas main > h2 {
+    margin-top: 0;
+}
+
+/*separamos cada compra en su propio cuadro */
+.pagina-ventas .venta {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.78);
+    border: 1px solid #c5cddb;
+    border-left: 5px solid #ef8c23;
+    border-radius: 8px;
+    overflow-wrap: anywhere;
+}
+
+.pagina-ventas .venta h3 {
+    margin-top: 0;
+    color: #17243b;
+}
+
+.pagina-ventas .venta ul {
+    padding-left: 22px;
+}
+
+.pagina-ventas .venta li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.pagina-ventas .venta > p:last-child {
+    margin-bottom: 0;
+    padding-top: 14px;
+    border-top: 1px solid #c5cddb;
+    font-size: 18px;
+}
+
+@media (max-width: 600px) {
+    .pagina-ventas main {
+        margin: 24px auto;
+        padding: 20px;
+    }
+
+    .pagina-ventas .venta {
+        padding: 16px;
+    }
+}
+
+#cambiar-tema {
+    margin-top: 16px;
+    background-color: #ef8c23;
+    color: #17243b;
+    font-weight: bold;
+}
+
+#cambiar-tema:hover {
+    background-color: #ffab50;
+}
+
+body.tema-oscuro {
+    color-scheme: dark;
+    color: #f1f3f6;
+    background-color: #776047;
+    background-blend-mode: normal, multiply, multiply;
+}
+
+body.tema-oscuro main {
+    background-color: transparent;
+}
+
+body.tema-oscuro.pagina-login main,
+body.tema-oscuro.pagina-admin main,
+body.tema-oscuro.pagina-producto main,
+body.tema-oscuro.pagina-ventas main {
+    background-color: rgba(23, 36, 59, 0.94);
+}
+
+body.tema-oscuro #lista-productos > li,
+body.tema-oscuro #bienvenida,
+body.tema-oscuro section[aria-labelledby="titulo-carrito"],
+body.tema-oscuro .productos-admin li,
+body.tema-oscuro .venta {
+    background-color: rgba(23, 36, 59, 0.88);
+    border-color: #65748c;
+    color: #f1f3f6;
+}
+
+body.tema-oscuro input,
+body.tema-oscuro select,
+body.tema-oscuro dialog {
+    background-color: #202e45;
+    color: #f1f3f6;
+    border-color: #65748c;
+}
+
+body.tema-oscuro button,
+body.tema-oscuro .acciones-admin a {
+    background-color: #354f75;
+    color: white;
+}
+
+body.tema-oscuro button:hover,
+body.tema-oscuro .acciones-admin a:hover {
+    background-color: #45658f;
+}
+
+body.tema-oscuro .productos-admin a,
+body.tema-oscuro #descargar-ticket {
+    color: #a9d1ff;
+}
+
+body.tema-oscuro .venta h3,
+body.tema-oscuro.pagina-producto form p {
+    color: #f1f3f6;
+}

@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de ventas - Autoservicio NBA</title>
+    <link rel="stylesheet" href="/tienda/estilos.css">
+    <script src="/tienda/tema.js" defer></script>
 </head>
-<body>
+<body class="pagina-ventas">
     <main>
-        <h1>Historial de ventas</h1>
-        <a href="/admin">Volver al panel</a>
+        <header>
+            <h1>Autoservicio NBA</h1>
+            <nav>
+                <a href="/admin">Volver al panel</a>
+            </nav>
+
+            <button id="cambiar-tema" type="button" aria-pressed="false">
+                Activar modo oscuro
+            </button>
+        </header>
+
+<main>
+    <h2>Historial de ventas</h2>
 
         <% if (ventas.length === 0) { %>
             <p>Todavia no hay ventas registradas.</p>
         <% } %>
 
         <% ventas.forEach(function (venta) { %>
-            <section>
-                <h2>Compra #<%= venta.id %> — <%= venta.nombreCliente %></h2>
+            <section class="venta">
+                <h3>Compra #<%= venta.id %> — <%= venta.nombreCliente %></h3>
                 <p><%= venta.fecha.toLocaleString('es-AR', {
                     timeZone: 'America/Argentina/Buenos_Aires'
                 }) %></p>
