@@ -611,3 +611,15 @@ body.tema-oscuro .venta h3,
 body.tema-oscuro.pagina-producto form p {
     color: #f1f3f6;
 }
+
+/* navegacion entre las pantallas del cliente */
+header nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+header nav a {
+    color: white;
+}

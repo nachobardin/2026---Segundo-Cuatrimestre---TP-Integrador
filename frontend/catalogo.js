@@ -177,6 +177,8 @@ siguiente.addEventListener('click', function () {
 
 const formRevisarPedido = document.getElementById('form-revisar-pedido');
 const nombreCliente = document.getElementById('nombre-cliente');
+//recuperamos el nombre ingresado en la pantalla de bieenvenida
+nombreCliente.value = sessionStorage.getItem('nombreCliente') || '';
 const avisoPedido = document.getElementById('aviso-pedido');
 const resumenPedido = document.getElementById('resumen-pedido');
 const clienteResumen = document.getElementById('cliente-resumen');
@@ -189,15 +191,10 @@ formRevisarPedido.addEventListener('submit', function(evento){
     const nombre = nombreCliente.value.trim();
     avisoPedido.textContent = '';
 
-//si termina la compra se pide el nombre para un nuevo pedido
     if (!nombre) {
-        bienvenida.hidden = false;
-        zonaCompra.hidden = true;
-        avisoBienvenida.textContent = 'Ingresa tu nombre para comenzar otro pedido.';
-        nombreCliente.focus();
+        window.location.href = '/tienda/';
         return;
     }
-
 
     if(carrito.length === 0){
         avisoPedido.textContent = 'Agrega al menos un producto al carrito';
@@ -280,28 +277,14 @@ filtroCategoria.addEventListener('change', function() {
     cargarPagina(1);
 })
 
-const bienvenida = document.getElementById('bienvenida');
-const formBienvenida = document.getElementById('form-bienvenida');
-const avisoBienvenida = document.getElementById('aviso-bienvenida');
-const zonaCompra = document.getElementById('zona-compra');
 const saludoCliente = document.getElementById('saludo-cliente');
 
-//pedimos el nombre al clientye antes de empezar a elegir productos
-formBienvenida.addEventListener('submit', function (evento) {
-    evento.preventDefault();
+// si an cliente entra directamente sin nombre vuelve a la bienvenida
+if (!nombreCliente.value.trim()) {
+    window.location.replace('/tienda/');
+} else {
+    saludoCliente.textContent =
+        '¡Hola, ' + nombreCliente.value + '! Elegí tu equipamiento.';
 
-    const nombre = nombreCliente.value.trim();
-
-    if (!nombre) {
-        avisoBienvenida.textContent = 'Ingresa tu nombre para comenzar.';
-        nombreCliente.focus();
-        return;
-    }
-
-    nombreCliente.value = nombre;
-    saludoCliente.textContent = '¡Hola, ' + nombre + '! Elegi tu equipamiento.';
-    bienvenida.hidden = true;
-    zonaCompra.hidden = false;
-});
-
-cargarPagina(1);
+    cargarPagina(1);
+}

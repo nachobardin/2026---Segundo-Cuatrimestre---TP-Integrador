@@ -21,7 +21,7 @@
     <main>
         <section id="bienvenida">
             <h2>¡Bienvenido a la cancha!</h2>
-            <p>¿Te falta equipamiento para jugar? Elegi tu camiseta o tus zapatillas de basquet.</p>
+            <p>Ingresá tu nombre para elegir tu equipamiento.</p>
 
             <form id="form-bienvenida">
                 <label for="nombre-cliente">Tu nombre</label>
@@ -31,64 +31,9 @@
 
             <p id="aviso-bienvenida" role="status"></p>
         </section>
-
-        <div id="zona-compra" hidden>
-            <p id="saludo-cliente"></p>
-
-        <h2>Catalogo</h2>
-
-        <label for="filtro-categoria">Categoria</label>
-        <select id="filtro-categoria">
-            <option value="">Todas</option>
-            <option value="Camisetas">Camisetas</option>
-            <option value="Zapatillas">Zapatillas</option>
-        </select>
-
-        <!--aca vamos a mostrar los productos que nos devuelva nuestra api-->
-        <ul id="lista-productos"></ul>
-
-        <nav aria-label="Paginas del catalogo">
-            <button id="pagina-anterior" type="button" disabled>Anterior</button>
-            <span id="estado-pagina" aria-live="polite"></span>
-            <button id="pagina-siguiente" type="button" disabled>Siguiente</button>
-
-        </nav>
-
-        <section aria-labelledby="titulo-carrito">
-            <h2 id="titulo-carrito">Carrito</h2>
-            <p id="carrito-vacio">Todavia no agregaste productos al carrito</p>
-            <ul id="lista-carrito"></ul>
-            <p>Total: $<strong id="total-carrito">0.00</strong></p>
-
-
-            <form id="form-revisar-pedido">
-                <button type="submit">Revisar pedido</button>
-            </form>
-            <p id="aviso-pedido" role="status"></p>
-            <a id="descargar-ticket" hidden>Descargar ticket PDF</a>
-
-
-        </section>
-
-        <dialog id="resumen-pedido" aria-labelledby="titulo-resumen">
-            <h2 id="titulo-resumen">Resumen del pedido</h2>
-            <p id="cliente-resumen"></p>
-            <ul id="productos-resumen"></ul>
-            <p>Total: $<strong id="total-resumen"></strong></p>
-
-            <button id="confirmar-compra" type="button">Confirmar compra</button>
-            <p id="aviso-compra" role="status"></p>
-
-            <form method="dialog">
-                <button type="submit">Volver al carrito</button>
-            </form>
-
-    
-        </dialog>
-        </div>
     </main>
 
-    <script src="catalogo.js"></script>
+    <script src="bienvenida.js"></script>
     
 </body>
 </html>
